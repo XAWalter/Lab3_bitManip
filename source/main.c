@@ -23,7 +23,7 @@ int main(void) {
         tmpA = PINA;
         
 
-	if(tmpA <= 4){
+	if ( ( tmpA & 0x0F) <= 4){
 	    tmpC = (tmpC | 0x40);
 	}
 	else{
@@ -31,7 +31,7 @@ int main(void) {
 	}
 
 	
-	switch (tmpA){
+	switch ( ( tmpA & 0x0F) ){
 
 	case 0:
 	    tmpC = (tmpC & 0xC0);
@@ -66,7 +66,14 @@ int main(void) {
 	    
 	}
 	
-    PORTC = tmpC; 
+	if ( ( tmpA & 0x70) == 0x30 ){
+	    tmpC = ( tmpC | 0x80 );
+	}
+	else{
+	    tmpC = ( tmpC & 0x7F );
+	}
+
+	PORTC = tmpC; 
 	 
     }
     return 1;
