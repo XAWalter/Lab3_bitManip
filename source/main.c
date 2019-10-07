@@ -26,6 +26,9 @@ int main(void) {
 	if(tmpA <= 4){
 	    tmpC = (tmpC | 0x40);
 	}
+	else{
+	    tmpC = (tmpC & 0xB0);
+	}
 
 	
 	switch (tmpA){
@@ -35,33 +38,35 @@ int main(void) {
 	    break;
 	case 1:
 	case 2:
-            tmpC = ((tmpC |0x20 & 0xE0);
+            tmpC = ((tmpC | 0x20) & 0xE0);
 	    break;
 	case 3:
 	case 4:
-            tmpC = (tmpC & 0xF0);
+            tmpC = ((tmpC | 0x03) & 0xF0);
 	    break;
         case 5: 
         case 6:
-            tmpC = (tmpC & 0xF8);
+            tmpC = ((tmpC | 0x38) & 0xF8);
 	    break;
 	case 7:
 	case 8:
 	case 9:
-	    tmpC = (tmpC & 0xFC);
+            tmpC = ((tmpC | 0x3C) & 0xFC);
 	    break;
 	case 10:
 	case 11:
 	case 12:
-	    tmpC = (tmpC & 0xFE);
+            tmpC = ((tmpC | 0x3E) & 0xFE);
 	    break;
 	case 13:
 	case 14:
 	case 15:
-	    tmpC = (tmpC & 0xFF);
+            tmpC = ((tmpC | 0x3F) & 0xFF);
 	    break;
 	    
-	} 
+	}
+	
+    PORTC = tmpC; 
 	 
     }
     return 1;
