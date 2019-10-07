@@ -32,17 +32,37 @@ int main(void) {
 
 	case 0:
 	    tmpC = (tmpC & 0xC0);
+	    break;
 	case 1:
 	case 2:
-            tmpC = (tmpC & 0x10);
+            tmpC = ((tmpC |0x20 & 0xE0);
+	    break;
 	case 3:
 	case 4:
-            tmpC = (tmpC & 0x18);
+            tmpC = (tmpC & 0xF0);
+	    break;
         case 5: 
         case 6:
-            tmpC = (tmpC & 0x18);
-	     
- 
+            tmpC = (tmpC & 0xF8);
+	    break;
+	case 7:
+	case 8:
+	case 9:
+	    tmpC = (tmpC & 0xFC);
+	    break;
+	case 10:
+	case 11:
+	case 12:
+	    tmpC = (tmpC & 0xFE);
+	    break;
+	case 13:
+	case 14:
+	case 15:
+	    tmpC = (tmpC & 0xFF);
+	    break;
+	    
+	} 
+	 
     }
     return 1;
 }
