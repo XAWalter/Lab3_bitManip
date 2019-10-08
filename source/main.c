@@ -14,25 +14,33 @@
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-    DDRA = 0x00; PORTA = 0xFF;
-    DDRB = 0xFF; PORTB = 0x00;
-    DDRC = 0xFF; PORTC = 0x00;
-    unsigned char tmpA = 0x00;
-    unsigned char tmpB = 0x00;
-    unsigned char tmpC = 0x00;
+	DDRB = 0x01; PORTB = 0xFE;
+	DDRD = 0xFF; PORTD = 0x00;
+	unsigned short tmpIB = 0x0000;
+	unsigned char tmpOB = 0x00;
+	unsigned short tmpD = 0x0000;
+	unsigned short weight = 0x0000;
     /* Insert your solution below */
     while (1) {
-	//read from input
-	tmpA = PINA;
+	//assign inputs to variables	
+        tmpIB = ( PINB & 0x01);
+	tmpD = PIND;
+	
+	//add inputs to get total weight
+	weight = tmpIB + tmpD;
 
-	//tmp B = b7b6b5b40000 | 0000a7a6a5a4 = b7b6b5b4a7a6a5a4	
-	tmpB = ( tmpB & 0xF0 ) | ( tmpA >> 4 );
-
-	//tmpC = 0000c3c2c1c0 | a3a2a1a00000 = a3a2a1a0c3c2c1c0
-	tmpC = ( tmpC & 0x0F ) | ( tmpA << 4 );
-
-	PORTB = tmpB;
-	PORTC = tmpC;
+	if( weight >= 70 ){
+	    tmpOB = ( tmpOB & 0xF9) | 0x02;
+	}
+	else if ( weight > 5 ){
+	    tmpOB = ( tmpOB & 0xF9) | 0x04;
+	}
+	else{
+	    tmpOB = ( tmpOB & 0xF9) | 0x00;
+	}
+	
+	PORTB = tmpOB;
+    
     }
     return 1;
 }
